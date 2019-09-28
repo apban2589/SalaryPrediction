@@ -312,5 +312,12 @@ def grid_search(X_train, y_train):
         
    grid_search(train_feature, train_salary)
    
+   ##----save results----
    
-   
+   for model, param_grid in rf, rf_param_grid:
+    cv = GridSearchCV(estimator = model, param_grid = param_grid, cv=10, scoring='accuracy')
+    cv.fit(X_train, Y_train)
+    sorted(str(model)+'_'+cv.cv_results_.keys())
+    pkl_filename = "pickle_model.pkl"
+    with open(pkl_filename, 'wb') as file:
+        pickle.dump(str(model)+'_'+cv, file)
